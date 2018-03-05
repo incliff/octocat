@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dao.UserRepository;
 import com.example.demo.domain.User;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,4 +25,8 @@ public class UserService implements UserDetailsService {
         }
         return user;
     }
+	public void saveUser(Map<String, Object> map) {
+		userRepository.saveUser(map);
+		
+	}
 }
