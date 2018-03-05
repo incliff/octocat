@@ -1,0 +1,15 @@
+spring:
+  thymeleaf.cache: false
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+
+#format json
+jacksonserialization.indent_output: true
