@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+  <link th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet"/>
+
+  <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+
+  <form class="form-signin" th:action="@{/login}" method="post" id="codeform">
+    <h2 class="form-signin-heading">Welcome to register</h2>
+
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" id="inputEmail" name="emailaddr" class="form-control" placeholder="Email address" required
+           autofocus>
+    <br>
+    <button type="button" class="btn btn-default" id="sendCode">Resend verification code</button>
+    <br>
+    <font id="countdown" color="red"></font>
+    <input type="text" class="form-control" placeholder="Security code" name="verify_code">
+    <br>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    <label for="inputPassword" class="sr-only">Comfirm</label>
+    <input type="password" id="confirm-Password" name="confirm_password" class="form-control"
+           placeholder="ComfirmPassword" required>
+    <button type="submit" class="btn btn-lg btn-primary btn-block" id="verifyCode">Submit</button>
+    <font id="result" color="green"></font><font id="error" color="red"></font>
+  </form>
+
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+<style>
+
+  body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+  }
+
+  .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+
+  .form-signin .checkbox {
+    font-weight: normal;
+  }
+
+  .form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+</style>
+
+<script type="text/javascript">
+  var t = 120;//设定倒计时的时间
+  var interval;
+  function refer() {
+    $("#countdown").text("请于" + t + "秒内填写验证码 "); // 显示倒计时
+    t--; // 计数器递减 
+    if (t <= 0) {
+      clearInterval(interval);
+      $("#countdown").text("验证码已失效，请重新发送！ ");
+    }
+  }
+
+  $(function () {
+    $("#sendCode").click(function () {
+
+      $.post("/verify_code/CodeSenderServlet", $("#codeform").serialize(), function (data) {
+        if (data == "true") {
+          t = 120;
+          clearInterval(interval);
+          interval = setInterval("refer()", 1000);//启动1秒定时
+        } else if (data == "false") {
+          clearInterval(interval);
+          $("#countdown").text("单日发送超过次数！ ")
+        }
+      });
+    });
+
+    $("#verifyCode").click(function () {
+
+      $.post("/verify_code/CodeVerifyServlet", $("#codeform").serialize(), function (data) {
+        if (data == "false") {
+          $("#result").attr("color", "red");
+          $("#result").text("注册失败");
+        }
+      });
+    });
+
+
+  });
+</script>
+</html>

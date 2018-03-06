@@ -29,6 +29,15 @@ public class User implements UserDetails {
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    public User() {
+    }
+
+    public User(String username, String password, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }

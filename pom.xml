@@ -24,17 +24,11 @@
     </properties>
 
     <dependencies>
-    
-    	<dependency>
-		    <groupId>redis.clients</groupId>
-		    <artifactId>jedis</artifactId>
-		    <version>2.9.0</version>
-		</dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -58,16 +52,16 @@
             <optional>true</optional>
         </dependency>
 
-		<dependency>
-		    <groupId>redis.clients</groupId>
-		    <artifactId>jedis</artifactId>
-		    <version>2.9.0</version>
-		</dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
         <!-- Spring Security Oauth2 -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.security.oauth</groupId>-->
-            <!--<artifactId>spring-security-oauth2</artifactId>-->
-            <!--<version>2.0.12.RELEASE</version>-->
+        <!--<groupId>org.springframework.security.oauth</groupId>-->
+        <!--<artifactId>spring-security-oauth2</artifactId>-->
+        <!--<version>2.0.12.RELEASE</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>

@@ -17,9 +17,8 @@ public class LoginController {
         return "login";
     }
 
-    @ResponseBody
     @RequestMapping("/")
     public String index() {
-        return "主页";
+        return "main";
     }
 }

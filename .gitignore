@@ -68,3 +68,7 @@ target
 *.pdf
 *.epub
 _book
+
+# NodeJS generated files #
+###########################
+node_modules
